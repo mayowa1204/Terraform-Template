@@ -1,0 +1,21 @@
+.
+├── infrastructure
+│   ├── dev
+        ├── main.tf
+        ├── variables.tf
+│       ├── outputs.tf
+└── functions
+    ├── function1
+        |__  modules
+            ├── main.tf
+            ├── variables.tf
+            └── outputs.tf
+│       ├── main.py
+│       └── requirements.txt
+    ├── function2
+        |__  modules
+            ├── main.tf
+            ├── variables.tf
+            └── outputs.tf
+|       ├── main.py
+|       └── requirements.txt

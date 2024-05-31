@@ -1,0 +1,210 @@
+swagger: "2.0"
+info:
+  title: "Template API"
+  version: 1.0.0
+schemes:
+  - "https"
+produces:
+  - application/json
+paths:
+  /auth/create:
+    post:
+      summary: Create Account
+      operationId: create_account
+      parameters:
+        - in: body
+          name: body
+          description: "Create payload"
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      x-google-backend:
+        address: https://${region}-${project_id}.cloudfunctions.net/auth_function/auth/create
+        jwt_audience: https://${region}-${project_id}.cloudfunctions.net/auth_function
+      security:
+        - api_key: []
+      responses:
+        "201":
+          description: OK
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+  /auth/login:
+    post:
+      summary: Login
+      operationId: login
+      parameters:
+        - in: body
+          name: body
+          description: "Login payload"
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      x-google-backend:
+        address: https://${region}-${project_id}.cloudfunctions.net/auth_function/auth/login
+        jwt_audience: https://${region}-${project_id}.cloudfunctions.net/auth_function
+      security:
+        - api_key: []
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              status:
+                type: number
+  /auth/logout:
+    post:
+      summary: Logout
+      operationId: logout
+      parameters:
+        - in: body
+          name: body
+          description: "Logout payload"
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      x-google-backend:
+        address: https://${region}-${project_id}.cloudfunctions.net/auth_function/auth/logout
+        jwt_audience: https://${region}-${project_id}.cloudfunctions.net/auth_function
+      security:
+        - api_key: []
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              status:
+                type: number
+  /auth/refresh:
+    post:
+      summary: Refresh Token
+      operationId: refresh
+      parameters:
+        - in: body
+          name: body
+          description: "Refresh payload"
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      x-google-backend:
+        address: https://${region}-${project_id}.cloudfunctions.net/auth_function/auth/refresh
+        jwt_audience: https://${region}-${project_id}.cloudfunctions.net/auth_function
+      security:
+        - api_key: []
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              status:
+                type: number
+  /users:
+    post:
+      summary: Update User
+      operationId: post_user
+      parameters:
+        - in: body
+          name: body
+          description: "Update payload"
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      x-google-backend:
+        address: https://${region}-${project_id}.cloudfunctions.net/users_function/users
+        jwt_audience: https://${region}-${project_id}.cloudfunctions.net/users_function
+      security:
+        - api_key: []
+      responses:
+        "201":
+          description: OK
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              status:
+                type: number
+  /users/{user_id}:
+    get:
+      summary: Get user
+      operationId: get_user
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          type: string
+      x-google-backend:
+        address: https://${region}-${project_id}.cloudfunctions.net/users_function/users
+        jwt_audience: https://${region}-${project_id}.cloudfunctions.net/users_function
+      security:
+        - api_key: []
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              status:
+                type: number
+  /users/delete/{user_id}:
+    delete:
+      summary: Delete User
+      operationId: delete_user
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          type: string
+      x-google-backend:
+        address: https://${region}-${project_id}.cloudfunctions.net/users_function/users/delete
+        jwt_audience: https://${region}-${project_id}.cloudfunctions.net/users_function
+      security:
+        - api_key: []
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              status:
+                type: number
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"
